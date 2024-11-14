@@ -1,3 +1,44 @@
+<?php 
+    session_start();
+    require "../MySQL/connect.php";
+
+    if(isset($_SESSION['user_id'])) {
+        header('location: user.php');
+    }
+
+    if(isset($_POST['submit'])) {
+
+        $Errors = [];
+
+        $name = htmlspecialchars($_POST['name']);
+        $password = htmlspecialchars($_POST['password']);
+
+        if (empty($name) && preg_match("/^[a-zA-Z ]*$/",$name)) {
+            $Errors['name'] = "Username $name is not valid.\n";
+        }
+        if (empty($password)) {
+            $Errors['password'] = "Password is required.\n";
+        }
+        if ($Errors == []) {
+
+            $password = md5($password);
+
+            $sql = "SELECT * FROM users WHERE name = '$name' AND password = '$password'";
+            $result = $pdo->query($sql);
+            $user = $result->fetch();
+
+            // If exists user send user page
+
+            if (!empty($user)) {
+                $_SESSION['user_id'] = $user['id'];
+                header('location: user.php');
+            } else {
+                $Errors['name'] = "Incorrect username or password.\n";
+            }
+        }
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,10 +69,12 @@
         <main>
             <form action="" method="post">
                 <h1>Authorization</h1>
-                <label for="login">Username</label>
-                <input type="text" name="login" id="login">
+                <label for="name">Username</label>
+                <input required type="text" name="name" id="name" autocomplete="name">
+                <span class="error"><?= isset($Errors['name']) ? $Errors['name'] : null ?></span>
                 <label for="password">Password</label>
-                <input type="password" name="password" id="password">
+                <input required type="password" name="password" id="password" autocomplete="password">
+                <span class="error"><?= isset($Errors['password']) ? $Errors['password'] : null ?></span>
                 <span>
                     <label for="rememberMe">Remember</label>
                     <input type="checkbox" name="rememberMe" id="rememberMe">

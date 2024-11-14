@@ -1,21 +1,54 @@
 <?php 
 
-if(isset($_POST['submit'])) {
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    // Validate the inputs
-        if(empty($username) || empty($email) || empty($password)) {
-            echo "All fields are required.";
-        } else if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            echo "Invalid email format.";
-        } else {
+    require '../MySQL/connect.php';
+    session_start();
+
+    if(isset($_POST['submit'])) {
+
+    // Validate the input requireds
+
+        $Errors = [];
+
+
+        $username = htmlspecialchars($_POST['username']);
+        $email = htmlspecialchars($_POST['email']);
+        $password = htmlspecialchars($_POST['password']);
+        $resetpassword = htmlspecialchars($_POST['resetPassword']);
+        
+        if(empty($username)) {
+            $Errors['username'] = 'Username is required.';
+        } 
+        if (empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $Errors['email'] = "Invalid email format.";
+        } 
+        if (empty($password)) {
+            $Errors['password'] = 'Password is required.';
+        } 
+        if ($password !== $resetpassword) {
+            $Errors['resetpassword'] = 'Password should not be same.';
+        }
+        if ($Errors == []) {
+
+            // Password Hash md5
+
+            $password = md5($password);
+
             // Save the data to the database
+
             // Replace this with your own database connection
-            $conn = new mysqli("localhost", "root", "", "GrandCoffee");
-            if($conn->connect_error) {
-                die("Connection failed: ". $conn->connect_error);
-            }
+
+        
+            $sql = "INSERT INTO users (`id`, `name`, `email`, `password`) VALUES (NULL,'$username', '$email', '$password')";
+
+            $stmt= $pdo->prepare($sql);
+            $stmt->execute();
+
+            // Get inserted ID
+
+            $user_id = $pdo->lastInsertId();
+            $_SESSION['user_id'] = $user_id;
+
+            header('location: user.php');
         }
     }
 ?>
@@ -50,13 +83,17 @@ if(isset($_POST['submit'])) {
             <form action="" method="post">
                 <h1>Registration</h1>
                 <label for="username">Username</label>
-                <input type="text" name="username" id="username">
+                <input required type="text" name="username" id="username">
+                <span class="error"><?= isset($Errors['username']) ? $Errors['username'] : null ?></span>
                 <label for="email">Email</label>
-                <input type="email" name="email" id="email">
+                <input required type="email" name="email" id="email">
+                <span class="error"><?= isset($Errors['email']) ? $Errors['email'] : null ?></span>
                 <label for="password">Password</label>
-                <input type="password" name="password" id="password">
+                <input required type="password" name="password" id="password">
+                <span class="error"><?= isset($Errors['password']) ? $Errors['password'] : null ?></span>
                 <label for="resetPassword">Reset password</label>
-                <input type="password" name="resetPassword" id="resetPassword">
+                <input required type="password" name="resetPassword" id="resetPassword">
+                <span class="error"><?= isset($Errors['resetpassword']) ? $Errors['resetpassword'] : null ?></span>
                 <span style="display: block;"><a href="login.php">I already have account</a></span>
                 <input class="btn" type="submit" name="submit" value="Register">
             </form>

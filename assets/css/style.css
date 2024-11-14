@@ -407,3 +407,68 @@ footer div a {
 .slider_img.active {
     opacity: 1;
 }
+
+/* Error inputs */
+.error {
+    color: brown;
+    margin-left: 2em;
+    padding-bottom: 5px;
+}
+
+/* Log Out */
+
+.logout {
+    background-color: #f05428;
+    color: white;
+    text-decoration: none;
+    height: 35px;
+    display: block;
+    width: 80px;
+    text-align: center;
+    border-radius: 5px;
+    line-height: 35px;
+    position: absolute;
+    right: 25px;
+    top: 0;
+}
+
+/* Buy coffee */
+
+.buy_coffee {
+    width: min(500px, 90%) !important;
+}
+.coffee_blog {
+    position: relative;
+    background-color: #f2f2f2;
+    margin-bottom: 1em;
+}
+.layout-container {
+    columns: 4 200px;
+}
+.coffee_blog h5 {
+    color: #1a1a1a;
+    margin-left: 1em;
+    margin-top: 5px;
+    font-size: 15px;
+}
+.coffee_blog a {
+    background: transparent;
+    color: #1a1a1a;
+    height: auto;
+    width: auto;
+    text-align: left;
+    padding: 0;
+    margin-left: 1em;
+}
+.coffee_blog p {
+    text-align: left;
+    margin-left: 13px;
+    margin-top: 1em;
+}
+.coffee_blog span {
+    text-align: right;
+    position: absolute;
+    right: 15px;
+    bottom: 31px;
+    font-size: 18px;
+}

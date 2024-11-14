@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=2.0">
-    <title>Pizza Nizza</title>
+    <title>Grand Coffee</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,6 +30,8 @@
                     <img class="slider_img" src="assets/images/banner-bg.png" alt="slider-2">
                     <img class="slider_img" src="assets/images/banner-bg2.jpg" alt="slider-2">
                     <img class="slider_img" src="assets/images/banner-bg3.jpg" alt="slider-3">
+                    <img class="slider_img" src="assets/images/banner-bg4.jpg" alt="slider-4">
+                    <img class="slider_img" src="assets/images/banner-bg5.jpg" alt="slider-5">
                 </div>
                 <h1 class="reveal">Outstanding</h1>
                 <marquee direction="right">Coffee House</marquee>
@@ -165,7 +167,7 @@
     </script>
     <script>
             ScrollReveal({
-            reset: true,
+            // reset: true,
             distance: '60px',
             duration: 2500,
             delay: 400

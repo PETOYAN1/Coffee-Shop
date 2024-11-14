@@ -38,6 +38,8 @@
                     <img height="300px" src="assets/images/img-7.png" alt="img-7.png">
                     <img height="300px" src="assets/images/img-8.png" alt="img-8.png">
                     <img height="300px" src="assets/images/img-9.png" alt="img-9.png">
+                    <img height="300px" src="assets/images/img-2.png" alt="img-2.png">
+                    <img height="300px" src="assets/images/img-5.png" alt="img-5.png">
                 </div>
                 <a style="margin: 20px auto;" href="auth/login.php">See More</a>
             </section>
